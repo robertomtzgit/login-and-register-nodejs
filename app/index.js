@@ -9,16 +9,14 @@ import {methods as authorization} from "./middlewares/authorization.js";
 
 //Server
 const app = express();
-app.set("port", 4000);
-app.listen(app.get("port"));
-console.log("Seridor corriendo en puerto ", app.get("port"));
+const PORT = process.env.PORT || 4000; // Fallback a 4000 solo para desarrollo local
+app.listen(PORT);
+console.log("Servidor corriendo en puerto ", PORT);
 
 //Configuracion
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(cookieParser())
-
-
 
 //Rutas
 app.get('/', authorization.soloPublico, (req, res) => res.sendFile(__dirname + "/pages/login.html"));
